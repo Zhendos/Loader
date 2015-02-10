@@ -96,23 +96,44 @@ public class ClassLoader{
 		 * While true ( will always be ).
 		 * 
 		 */
+		int count = 0;
 		while(true){
 			Thread.sleep(2000);
-			System.out.println("CameraX: " + Camera.getCameraX());
-			System.out.println("CameraY: " + Camera.getCameraY());
-			System.out.println("CameraZ: " + Camera.getCameraZ());
-			System.out.println("MouseX: " + Mouse.getMouseX());
-
+			System.out.println("Log #" + count);
+			System.out.println("CameraX position: " + Camera.getCameraX());
+			System.out.println("CameraY position: " + Camera.getCameraY());
+			System.out.println("CameraZ position: " + Camera.getCameraZ());
+			System.out.println("MouseX position: " + Mouse.getMouseX());
+			System.out.println("MouseY position: " + Mouse.getMouseY());
+			System.out.println("MouseIdleTime: " + Mouse.getIdleTime());
+			
+			count++;
+			System.out.println("");
+			
+			
 		}
 	}
 	
+	 static class Handler implements Runnable{
 
+		@Override
+		public void run() {
+			System.out.println("started");
 
-			//Field f1 = classLoader.loadClass("client").getDeclaredField("UZ");
-			//f1.setAccessible(true);
-	
-			//Thread.sleep(15000);
-			//Field f = classLoader.loadClass("client").getDeclaredField("g");
-			//f.setAccessible(true);
-			//System.out.println(f.get(classLoader.loadClass("client").newInstance()));
+			while( applet.getComponents().length == 0){
+				try{
+					Thread.sleep(200);
+					//System.out.println("Hey");
+				}catch(Exception e){
+					e.printStackTrace();
+					}
+				}
+			
+			//Mouse.canvas= (Canvas)applet.getComponent(0);
+			//Mouse.canvas.addMouseListener(new Mouse());
+			
+		}
+		
+	}
+}
 
