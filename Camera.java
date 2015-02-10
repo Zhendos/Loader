@@ -56,8 +56,9 @@ public class Camera {
 	}
 	
 	 public void setCameraX(int cameraX) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
-		cameraX = this.getCameraX();
+		cameraX = Camera.getCameraX();
 		
 	}
+
 	
 }
