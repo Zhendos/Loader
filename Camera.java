@@ -1,9 +1,6 @@
 package org.bot.reflection;
 
 import java.lang.reflect.Field;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 
 import org.bot.loader.ClassLoader;
 
@@ -54,7 +51,15 @@ public class Camera {
 		f.setAccessible(true);
 		return (int) f.getInt(ClassLoader.applet);
 	}
-	
+	/**
+	 * 
+	 * Sets our cameraX postion.
+	 * @param cameraX
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 */
 	 public void setCameraX(int cameraX) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
 		cameraX = Camera.getCameraX();
 		
