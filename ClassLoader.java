@@ -15,9 +15,12 @@ import javax.swing.JFrame;
 
 import org.bot.reflection.Camera;
 import org.bot.reflection.Mouse;
+import org.bot.reflection.NPC;
+import org.bot.reflection.Player;
 
 
 public class ClassLoader{
+	//rD is myUsername
 
 	/**
 	 * 
@@ -95,22 +98,11 @@ public class ClassLoader{
 		 * 
 		 * While true ( will always be ).
 		 * 
-		 */
-		int count = 0;
+		 */ 
+		
 		while(true){
-			Thread.sleep(2000);
-			System.out.println("Log #" + count);
-			System.out.println("CameraX position: " + Camera.getCameraX());
-			System.out.println("CameraY position: " + Camera.getCameraY());
-			System.out.println("CameraZ position: " + Camera.getCameraZ());
-			System.out.println("MouseX position: " + Mouse.getMouseX());
-			System.out.println("MouseY position: " + Mouse.getMouseY());
-			System.out.println("MouseIdleTime: " + Mouse.getIdleTime());
-			
-			count++;
-			System.out.println("");
-			
-			
+			Thread.sleep(30000);
+			System.out.println("My combat level: " + Player.getCombatLevel());
 		}
 	}
 	
@@ -131,6 +123,12 @@ public class ClassLoader{
 			
 			//Mouse.canvas= (Canvas)applet.getComponent(0);
 			//Mouse.canvas.addMouseListener(new Mouse());
+			
+			/**
+			 * 
+			 * Class II --> Entity.
+			 * 
+			 */
 			
 		}
 		
