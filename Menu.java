@@ -82,6 +82,14 @@ public class Menu {
 		f.setAccessible(true);
 		return (int[]) f.get(ClassLoader.applet);
 	}
+	
+	public static Object getMenuIDAction() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException {
+		for(int m : Menu.getMenuActionID()){
+			return m;
+		}
+		return null;
+	}
 
 	
 }
+
