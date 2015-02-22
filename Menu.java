@@ -1,99 +1,87 @@
-package org.bot.frame;
+package org.bot.reflection;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+import org.bot.loader.ClassLoader;
 
-/**
- * 
- * close actionlistener.
- *
- */
-class close implements ActionListener {
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		System.exit(0);
-		
-	}
-	
-}
-
-class debugPlayer implements ActionListener{
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-	}
-	
-}
-
-class credits implements ActionListener {
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(Menu.frame, "Thanks to the following person: MalikDz");
-		
-	}
-	
-}
 public class Menu {
+	public Object instance;
+	
+	public Menu(Object instance){
+		this.instance = instance;
+	}
+	
 	/**
 	 * 
-	 * Fields
-	 * 
+	 * Gets the loaded menu ( broken )
+	 * @return
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws ClassNotFoundException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
 	 */
-	public static JMenuBar bar = new JMenuBar();
-	
-	public static JMenu menu1 = new JMenu("File");
-	public static JMenuItem close = new JMenuItem("Exit");
-	
-	
-	public static JMenu menu2 = new JMenu("Debug");
-	public static JMenuItem player = new JMenuItem("Player");
-	public static JMenuItem npc = new JMenuItem("NPC");
-	public static JMenuItem item = new JMenuItem("Item");
-	
-	public static JMenu menu3 = new JMenu("Info");
-	public static JMenuItem credits = new JMenuItem("Credits");
-	
-	
-	public static JFrame frame = new JFrame();
-	
-	
-	public static void setMenu() {
-		
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-		frame.setSize(780, 650);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(TheCanvas.canvas);
-		
-		bar.add(menu1);
-		menu1.add(close);
-		close.addActionListener(new close());
-		
-		bar.add(menu2);
-		menu2.add(player);
-		menu2.add(npc);
-		menu2.add(item);
-		
-		bar.add(menu3);
-		menu3.add(credits);
-		credits.addActionListener(new credits());
-		
-		
-		frame.setJMenuBar(bar);
-		
-		frame.setVisible(true);
-		
+	public static Menu[] getLoadedMenu() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		ArrayList<Menu> menus = new ArrayList<Menu>();
+		Field f = ClassLoader.classLoader.loadClass("client").getDeclaredField("cB");
+		f.setAccessible(true);
+		for(Object o :(Object[]) f.get(ClassLoader.applet)){
+			if(o != null){
+				menus.add(new Menu(o));
+			}
+		}
+		return menus.toArray(new Menu[menus.size()]);
 		
 	}
+	
+	/**
+	 * 
+	 * Checks if the menu is open or not.
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws ClassNotFoundException
+	 */
+	public static boolean isMenuOpen() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException {
+		Field f = ClassLoader.classLoader.loadClass("client").getDeclaredField("DI");
+		f.setAccessible(true);
+		return (boolean) f.getBoolean(ClassLoader.applet);
+	}
+	
+	/**
+	 * 
+	 * Gets the menu screen area.
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws ClassNotFoundException
+	 */
+	public static int getMenuScreenArea() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException {
+		Field f = ClassLoader.classLoader.loadClass("client").getDeclaredField("wI");
+		f.setAccessible(true);
+		return (int) f.getInt(ClassLoader.applet);
+	}
+	
+	/**
+	 * 
+	 * Gets the menu action ID.
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws ClassNotFoundException
+	 */
+	public static int[] getMenuActionID() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException {
+		Field f = ClassLoader.classLoader.loadClass("client").getDeclaredField("cB");
+		f.setAccessible(true);
+		return (int[]) f.get(ClassLoader.applet);
+	}
 
-
+	
 }
