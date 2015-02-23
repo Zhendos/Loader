@@ -83,12 +83,48 @@ public class Menu {
 		return (int[]) f.get(ClassLoader.applet);
 	}
 	
+	public static int[] getMenuActionCMD1() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException {
+		Field f = ClassLoader.classLoader.loadClass("client").getDeclaredField("bB");
+		f.setAccessible(true);
+		return (int[]) f.get(ClassLoader.applet);
+	}
+	
+	public static int[] getMenuActionCMD2() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException {
+		Field f = ClassLoader.classLoader.loadClass("client").getDeclaredField("iB");
+		f.setAccessible(true);
+		return (int[]) f.get(ClassLoader.applet);
+	}
+	
+	public static int[] getMenuActionCMD3() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException {
+		Field f = ClassLoader.classLoader.loadClass("client").getDeclaredField("zB");
+		f.setAccessible(true);
+		return (int[]) f.get(ClassLoader.applet);
+	}
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * Gets the filtered menu action ID.
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws ClassNotFoundException
+	 */
 	public static Object getMenuIDAction() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException {
 		for(int m : Menu.getMenuActionID()){
 			return m;
 		}
 		return null;
 	}
+	
+	
 
 	
 }
