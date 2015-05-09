@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import org.bot.loader.ClassLoader;
 
-public class Player {
+public class Player extends Entity{
 	/**
 	 * 
 	 * Fields.
@@ -12,6 +12,12 @@ public class Player {
 	 */
 	public static Object playerInstance;
 	public static boolean b;
+	
+	public Object instance;
+	
+	public Object PInstance(){
+		return instance;
+	}
 	
 
 	
@@ -26,7 +32,7 @@ public class Player {
 	 * @throws IllegalAccessException
 	 */
 	public static Object playerInstance() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-		Field f = ClassLoader.classLoader.loadClass("client").getDeclaredField("EI");
+		Field f = ClassLoader.classLoader.loadClass("client").getDeclaredField("FD");
 		f.setAccessible(true);
 		return (Object) f.get(ClassLoader.applet);
 	}
@@ -61,6 +67,24 @@ public class Player {
 	public static int getMyPrivilege() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException{
 		Field f = ClassLoader.classLoader.loadClass("client").getDeclaredField("m");
 		f.setAccessible(true);
+		return (int) f.getInt(ClassLoader.applet);
+	}
+	
+	/**
+	 * 
+	 * Sets the privilege of the local character.
+	 * @param rank
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws ClassNotFoundException
+	 */
+	public static int setMyPrivillege(int rank) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException {
+		Field f = ClassLoader.classLoader.loadClass("client").getDeclaredField("m");
+		f.setAccessible(true);
+		f.setInt(ClassLoader.applet, rank);
 		return (int) f.getInt(ClassLoader.applet);
 	}
 	
@@ -109,13 +133,12 @@ public class Player {
 	public static int getCombatLevel() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException{
 		Field f = ClassLoader.classLoader.loadClass("BZ").getDeclaredField("MI"); //loadClass BZ.
 		f.setAccessible(true);
-		return (int) f.get(playerInstance());
-		
+		return (int) f.getInt(playerInstance());
 	}
 	
 	/**
 	 * 
-	 * Gets the username.
+	 * Gets the username. ( playerInstance) ( broken )
 	 * @return
 	 * @throws IllegalArgumentException
 	 * @throws IllegalAccessException
@@ -124,7 +147,7 @@ public class Player {
 	 * @throws ClassNotFoundException
 	 */
 	public static String getUsername() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException{
-		Field f = ClassLoader.classLoader.loadClass("BZ").getDeclaredField("KI");
+		Field f = ClassLoader.classLoader.loadClass("client").getDeclaredField("FD"); //KI
 		f.setAccessible(true);
 		return (String) f.get(playerInstance());
 	}
@@ -241,8 +264,53 @@ public class Player {
 		return (String) f.get(ClassLoader.applet);
 	}
 	
+	/**
+	 * 
+	 * Checks if the local player is visible or not.
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws ClassNotFoundException
+	 */
+	public int isVisible() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException {
+		Field f = ClassLoader.classLoader.loadClass("BZ").getDeclaredField("iI");
+		f.setAccessible(true);
+		return (int) f.getInt(playerInstance());
+	}
 	
-
+	/**
+	 * 
+	 * Set the player character visible or invisible.
+	 * @param visible
+	 * @return
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws ClassNotFoundException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 */
+	public static boolean setVisible(boolean visible) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		Field f = ClassLoader.classLoader.loadClass("BZ").getDeclaredField("iI");
+		f.setAccessible(true);
+		f.setBoolean(playerInstance(), visible);
+		return (boolean) f.getBoolean(playerInstance());
+	}
 	
-
+	/**
+	 * 
+	 * Gets the health ( not finished )
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws ClassNotFoundException
+	 */
+	public int getHealth() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, ClassNotFoundException {
+		Field f = ClassLoader.classLoader.loadClass("II").getDeclaredField("");
+		f.setAccessible(true);
+		return (int) f.getInt(instance);
+	}
 }
